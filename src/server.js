@@ -8,7 +8,18 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(pino());
+app.use(
+  pino({
+    transport: {
+      target: 'pino-pretty',
+      options: {
+        colorize: true,
+        translateTime: 'HH:MM:ss',
+        ignore: 'pid,hostname',
+      },
+    },
+  })
+);
 
 // Маршрути
 app.get('/notes', (req, res) => {
