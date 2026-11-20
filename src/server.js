@@ -16,7 +16,7 @@ app.use(express.json());
 
 
 // Маршрути
-app.use('/notes', notesRoutes);
+app.use(notesRoutes);
 
 
 
