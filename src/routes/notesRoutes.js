@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { celebrate } from 'celebrate';
+import { authenticate } from '../middleware/authenticate.js';
 import {
   getAllNotes,
   getNoteById,
@@ -21,5 +22,6 @@ router.get('/notes/:noteId', celebrate(noteIdSchema), getNoteById);
 router.post('/notes', celebrate(createNoteSchema), createNote);
 router.delete('/notes/:noteId', celebrate(noteIdSchema), deleteNote);
 router.patch('/notes/:noteId', celebrate(updateNoteSchema), updateNote);
+router.get('/notes', authenticate, celebrate(getAllNotesSchema), getAllNotes);
 
 export default router;

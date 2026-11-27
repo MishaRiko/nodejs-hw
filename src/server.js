@@ -12,6 +12,7 @@ import notesRoutes from './routes/notesRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 
 
+
 const app = express();
 
 app.use(logger);
