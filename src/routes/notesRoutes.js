@@ -1,3 +1,5 @@
+
+
 import { Router } from 'express';
 import { celebrate } from 'celebrate';
 import { authenticate } from '../middleware/authenticate.js';
@@ -17,9 +19,64 @@ import {
 
 const router = Router();
 
-router.get('/notes', authenticate, celebrate(getAllNotesSchema), getAllNotes);
-router.get('/notes/:noteId', authenticate, celebrate(noteIdSchema), getNoteById);
-router.post('/notes', authenticate, celebrate(createNoteSchema), createNote);
-router.delete('/notes/:noteId', authenticate, celebrate(noteIdSchema), deleteNote);
-router.patch('/notes/:noteId', authenticate, celebrate(updateNoteSchema), updateNote);
+router.get(
+  '/notes',
+  authenticate,
+  celebrate({ query: getAllNotesSchema }),
+  getAllNotes,
+);
+router.get(
+  '/notes/:noteId',
+  authenticate,
+  celebrate({ params: noteIdSchema }),
+  getNoteById,
+);
+router.post(
+  '/notes',
+  authenticate,
+  celebrate({ body: createNoteSchema }),
+  createNote,
+);
+router.delete(
+  '/notes/:noteId',
+  authenticate,
+  celebrate({ params: noteIdSchema }),
+  deleteNote,
+);
+router.patch(
+  '/notes/:noteId',
+  authenticate,
+  celebrate({ body: updateNoteSchema, params: noteIdSchema }),
+  updateNote,
+);
+
 export default router;
+
+
+
+
+// import { Router } from 'express';
+// import { celebrate } from 'celebrate';
+// import { authenticate } from '../middleware/authenticate.js';
+// import {
+//   getAllNotes,
+//   getNoteById,
+//   createNote,
+//   deleteNote,
+//   updateNote,
+// } from '../controllers/notesController.js';
+// import {
+//   getAllNotesSchema,
+//   noteIdSchema,
+//   createNoteSchema,
+//   updateNoteSchema,
+// } from '../validations/notesValidation.js';
+
+// const router = Router();
+
+// router.get('/notes', authenticate, celebrate(getAllNotesSchema), getAllNotes);
+// router.get('/notes/:noteId', authenticate, celebrate(noteIdSchema), getNoteById);
+// router.post('/notes', authenticate, celebrate(createNoteSchema), createNote);
+// router.delete('/notes/:noteId', authenticate, celebrate(noteIdSchema), deleteNote);
+// router.patch('/notes/:noteId', authenticate, celebrate(updateNoteSchema), updateNote);
+// export default router;
